@@ -140,27 +140,27 @@ let buzzGain;
 let lfo;
 let lfoGain;
 
-function startBuzz() {
+async function startBuzz() {
   if (!audioContext) {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
   }
   if (audioContext.state === "suspended") {
-    audioContext.resume();
+    await audioContext.resume();
   }
   if (buzzOsc) {
     return;
   }
   buzzOsc = audioContext.createOscillator();
   buzzOsc.type = "sawtooth";
-  buzzOsc.frequency.value = 200;
+  buzzOsc.frequency.value = 440;
   buzzGain = audioContext.createGain();
-  buzzGain.gain.value = 0.05;
+  buzzGain.gain.value = 0.08;
 
   lfo = audioContext.createOscillator();
   lfo.type = "sine";
-  lfo.frequency.value = 12;
+  lfo.frequency.value = 18;
   lfoGain = audioContext.createGain();
-  lfoGain.gain.value = 30;
+  lfoGain.gain.value = 60;
 
   lfo.connect(lfoGain);
   lfoGain.connect(buzzOsc.frequency);
@@ -173,7 +173,9 @@ function startBuzz() {
 }
 
 function handleSoundStart() {
-  startBuzz();
+  startBuzz().catch((error) => {
+    console.error("Unable to start audio:", error);
+  });
   soundOverlay.classList.add("hidden");
 }
 
