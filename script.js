@@ -148,6 +148,14 @@ async function startBuzz() {
   await beeAudio.play();
 }
 
+function stopBuzz() {
+  if (!beeAudio || beeAudio.paused) {
+    return;
+  }
+  beeAudio.pause();
+  beeAudio.currentTime = 0;
+}
+
 function handleSoundStart() {
   startBuzz().catch((error) => {
     console.error("Unable to start audio:", error);
@@ -163,6 +171,20 @@ soundOverlay.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
     handleSoundStart();
   }
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopBuzz();
+  }
+});
+
+window.addEventListener("pagehide", () => {
+  stopBuzz();
+});
+
+window.addEventListener("blur", () => {
+  stopBuzz();
 });
 
 if ("serviceWorker" in navigator) {
