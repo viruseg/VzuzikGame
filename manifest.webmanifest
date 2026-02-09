@@ -4,8 +4,8 @@
   "description": "Игра с пчёлками и шариками.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#fff6db",
-  "theme_color": "#ffb400",
+  "background_color": "#aaff88",
+  "theme_color": "#00aaff",
   "icons": [
     {
       "src": "bee-icon.svg",
