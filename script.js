@@ -140,7 +140,7 @@ async function startBuzz() {
   if (!beeAudio) {
     beeAudio = new Audio("bee.mp3");
     beeAudio.loop = true;
-    beeAudio.volume = 0.5;
+    beeAudio.volume = 1;
   }
   if (!beeAudio.paused) {
     return;
