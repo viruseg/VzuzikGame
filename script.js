@@ -152,15 +152,15 @@ async function startBuzz() {
   }
   buzzOsc = audioContext.createOscillator();
   buzzOsc.type = "sawtooth";
-  buzzOsc.frequency.value = 440;
+  buzzOsc.frequency.value = 200;
   buzzGain = audioContext.createGain();
-  buzzGain.gain.value = 0.08;
+  buzzGain.gain.value = 0.05;
 
   lfo = audioContext.createOscillator();
   lfo.type = "sine";
-  lfo.frequency.value = 18;
+  lfo.frequency.value = 12;
   lfoGain = audioContext.createGain();
-  lfoGain.gain.value = 60;
+  lfoGain.gain.value = 30;
 
   lfo.connect(lfoGain);
   lfoGain.connect(buzzOsc.frequency);
