@@ -1,7 +1,7 @@
 {
   "name": "Пчёлки и шарики",
   "short_name": "Пчёлки",
-  "description": "Игра с пчёлками и шариками, которую можно установить как приложение.",
+  "description": "Игра с пчёлками и шариками.",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff6db",
