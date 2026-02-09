@@ -134,42 +134,18 @@ scene.addEventListener("pointerdown", (event) => {
   addBalloon(event);
 }, { passive: false });
 
-let audioContext;
-let buzzOsc;
-let buzzGain;
-let lfo;
-let lfoGain;
+let beeAudio;
 
 async function startBuzz() {
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  if (!beeAudio) {
+    beeAudio = new Audio("bee.mp3");
+    beeAudio.loop = true;
+    beeAudio.volume = 0.5;
   }
-  if (audioContext.state === "suspended") {
-    await audioContext.resume();
-  }
-  if (buzzOsc) {
+  if (!beeAudio.paused) {
     return;
   }
-  buzzOsc = audioContext.createOscillator();
-  buzzOsc.type = "sawtooth";
-  buzzOsc.frequency.value = 200;
-  buzzGain = audioContext.createGain();
-  buzzGain.gain.value = 0.05;
-
-  lfo = audioContext.createOscillator();
-  lfo.type = "sine";
-  lfo.frequency.value = 12;
-  lfoGain = audioContext.createGain();
-  lfoGain.gain.value = 30;
-
-  lfo.connect(lfoGain);
-  lfoGain.connect(buzzOsc.frequency);
-
-  buzzOsc.connect(buzzGain);
-  buzzGain.connect(audioContext.destination);
-
-  buzzOsc.start();
-  lfo.start();
+  await beeAudio.play();
 }
 
 function handleSoundStart() {
