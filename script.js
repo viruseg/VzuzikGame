@@ -129,13 +129,10 @@ function addBalloon(event) {
   balloons.push(new Balloon(x, y));
 }
 
-scene.addEventListener("click", (event) => {
+scene.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
   addBalloon(event);
-});
-
-scene.addEventListener("touchstart", (event) => {
-  addBalloon(event);
-});
+}, { passive: false });
 
 let audioContext;
 let buzzOsc;
@@ -144,10 +141,15 @@ let lfo;
 let lfoGain;
 
 function startBuzz() {
-  if (audioContext) {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+  if (buzzOsc) {
     return;
   }
-  audioContext = new (window.AudioContext || window.webkitAudioContext)();
   buzzOsc = audioContext.createOscillator();
   buzzOsc.type = "sawtooth";
   buzzOsc.frequency.value = 200;
@@ -175,8 +177,10 @@ function handleSoundStart() {
   soundOverlay.classList.add("hidden");
 }
 
-soundOverlay.addEventListener("click", handleSoundStart);
-soundOverlay.addEventListener("touchstart", handleSoundStart);
+soundOverlay.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  handleSoundStart();
+}, { passive: false });
 soundOverlay.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
     handleSoundStart();
