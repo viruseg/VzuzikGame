@@ -134,27 +134,50 @@ scene.addEventListener("pointerdown", (event) => {
   addBalloon(event);
 }, { passive: false });
 
-let beeAudio;
+let audioContext;
+let beeBuffer;
+let beeSource;
+let beeGain;
 let soundEnabled = false;
 
-async function startBuzz() {
-  if (!beeAudio) {
-    beeAudio = new Audio("bee.mp3");
-    beeAudio.loop = true;
-    beeAudio.volume = 1;
+async function ensureAudioContext() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    beeGain = audioContext.createGain();
+    beeGain.gain.value = 1;
+    beeGain.connect(audioContext.destination);
   }
-  if (!beeAudio.paused) {
-    return;
+  if (!beeBuffer) {
+    const response = await fetch("bee.mp3");
+    const arrayBuffer = await response.arrayBuffer();
+    beeBuffer = await audioContext.decodeAudioData(arrayBuffer);
   }
-  await beeAudio.play();
 }
 
-function stopBuzz() {
-  if (!beeAudio || beeAudio.paused) {
+async function startBuzz() {
+  await ensureAudioContext();
+  if (audioContext.state === "suspended") {
+    await audioContext.resume();
+  }
+  if (beeSource) {
     return;
   }
-  beeAudio.pause();
-  beeAudio.currentTime = 0;
+  beeSource = audioContext.createBufferSource();
+  beeSource.buffer = beeBuffer;
+  beeSource.loop = true;
+  beeSource.connect(beeGain);
+  beeSource.start(0);
+}
+
+async function stopBuzz() {
+  if (beeSource) {
+    beeSource.stop();
+    beeSource.disconnect();
+    beeSource = null;
+  }
+  if (audioContext && audioContext.state === "running") {
+    await audioContext.suspend();
+  }
 }
 
 function handleSoundStart() {
@@ -177,7 +200,9 @@ soundOverlay.addEventListener("keydown", (event) => {
 
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
-    stopBuzz();
+    stopBuzz().catch((error) => {
+      console.error("Unable to stop audio:", error);
+    });
     return;
   }
   if (soundEnabled) {
@@ -188,11 +213,15 @@ document.addEventListener("visibilitychange", () => {
 });
 
 window.addEventListener("pagehide", () => {
-  stopBuzz();
+  stopBuzz().catch((error) => {
+    console.error("Unable to stop audio:", error);
+  });
 });
 
 window.addEventListener("blur", () => {
-  stopBuzz();
+  stopBuzz().catch((error) => {
+    console.error("Unable to stop audio:", error);
+  });
 });
 
 window.addEventListener("focus", () => {
