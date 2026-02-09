@@ -62,7 +62,7 @@ class Bee {
     this.startX = fromLeft ? -0.2 * width : 1.2 * width;
     this.endX = fromLeft ? 1.2 * width : -0.2 * width;
     this.baseY = height * (0.2 + Math.random() * 0.7);
-    this.speed = (0.4 + Math.random() * 0.4) * width / 300;
+    this.speed = width * (0.12 + Math.random() * 0.12);
     this.amplitude = 20 + Math.random() * 30;
     this.frequency = 0.6 + Math.random() * 1.0;
     this.phase = Math.random() * Math.PI * 2;
