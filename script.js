@@ -135,6 +135,7 @@ scene.addEventListener("pointerdown", (event) => {
 }, { passive: false });
 
 let beeAudio;
+let soundEnabled = false;
 
 async function startBuzz() {
   if (!beeAudio) {
@@ -157,6 +158,7 @@ function stopBuzz() {
 }
 
 function handleSoundStart() {
+  soundEnabled = true;
   startBuzz().catch((error) => {
     console.error("Unable to start audio:", error);
   });
@@ -176,6 +178,12 @@ soundOverlay.addEventListener("keydown", (event) => {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     stopBuzz();
+    return;
+  }
+  if (soundEnabled) {
+    startBuzz().catch((error) => {
+      console.error("Unable to resume audio:", error);
+    });
   }
 });
 
@@ -185,6 +193,14 @@ window.addEventListener("pagehide", () => {
 
 window.addEventListener("blur", () => {
   stopBuzz();
+});
+
+window.addEventListener("focus", () => {
+  if (soundEnabled) {
+    startBuzz().catch((error) => {
+      console.error("Unable to resume audio:", error);
+    });
+  }
 });
 
 if ("serviceWorker" in navigator) {
