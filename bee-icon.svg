@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bee-body" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffe680"/>
+      <stop offset="1" stop-color="#ffb400"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="#fff6db"/>
+  <circle cx="160" cy="210" r="70" fill="#c9f0ff" stroke="#7bbbe0" stroke-width="10" opacity="0.9"/>
+  <circle cx="250" cy="185" r="80" fill="#c9f0ff" stroke="#7bbbe0" stroke-width="10" opacity="0.85"/>
+  <ellipse cx="300" cy="290" rx="170" ry="110" fill="url(#bee-body)" stroke="#2b2b2b" stroke-width="14"/>
+  <rect x="215" y="190" width="45" height="200" rx="22" fill="#2b2b2b"/>
+  <rect x="270" y="180" width="45" height="220" rx="22" fill="#2b2b2b"/>
+  <rect x="325" y="200" width="45" height="190" rx="22" fill="#2b2b2b"/>
+  <circle cx="405" cy="270" r="32" fill="#2b2b2b"/>
+  <circle cx="418" cy="260" r="10" fill="#ffffff"/>
+  <path d="M210 320 C185 350 185 380 205 400" fill="none" stroke="#2b2b2b" stroke-width="12" stroke-linecap="round"/>
+  <path d="M230 330 C210 360 215 395 235 415" fill="none" stroke="#2b2b2b" stroke-width="12" stroke-linecap="round"/>
+</svg>

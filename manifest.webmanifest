@@ -1,0 +1,17 @@
+{
+  "name": "Пчёлки и шарики",
+  "short_name": "Пчёлки",
+  "description": "Игра с пчёлками и шариками, которую можно установить как приложение.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff6db",
+  "theme_color": "#ffb400",
+  "icons": [
+    {
+      "src": "bee-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
