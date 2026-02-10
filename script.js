@@ -131,6 +131,7 @@ function addBalloon(event) {
 
 scene.addEventListener("pointerdown", (event) => {
   event.preventDefault();
+  requestWakeLock();
   addBalloon(event);
 }, { passive: false });
 
@@ -139,6 +140,34 @@ let beeBuffer;
 let beeSource;
 let beeGain;
 let soundEnabled = false;
+let wakeLockSentinel = null;
+
+async function requestWakeLock() {
+  if (!("wakeLock" in navigator) || document.hidden || wakeLockSentinel) {
+    return;
+  }
+  try {
+    wakeLockSentinel = await navigator.wakeLock.request("screen");
+    wakeLockSentinel.addEventListener("release", () => {
+      wakeLockSentinel = null;
+    });
+  } catch (error) {
+    console.error("Unable to acquire wake lock:", error);
+  }
+}
+
+async function releaseWakeLock() {
+  if (!wakeLockSentinel) {
+    return;
+  }
+  try {
+    await wakeLockSentinel.release();
+  } catch (error) {
+    console.error("Unable to release wake lock:", error);
+  } finally {
+    wakeLockSentinel = null;
+  }
+}
 
 async function ensureAudioContext() {
   if (!audioContext) {
@@ -182,6 +211,7 @@ async function stopBuzz() {
 
 function handleSoundStart() {
   soundEnabled = true;
+  requestWakeLock();
   startBuzz().catch((error) => {
     console.error("Unable to start audio:", error);
   });
@@ -200,11 +230,13 @@ soundOverlay.addEventListener("keydown", (event) => {
 
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
+    releaseWakeLock();
     stopBuzz().catch((error) => {
       console.error("Unable to stop audio:", error);
     });
     return;
   }
+  requestWakeLock();
   if (soundEnabled) {
     startBuzz().catch((error) => {
       console.error("Unable to resume audio:", error);
@@ -213,6 +245,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 window.addEventListener("pagehide", () => {
+  releaseWakeLock();
   stopBuzz().catch((error) => {
     console.error("Unable to stop audio:", error);
   });
