@@ -56,7 +56,7 @@ class Bee {
 
   reset(initial = false) {
     const width = scene.clientWidth;
-    const height = scene.clientHeight * 0.55;
+    const height = scene.clientHeight * 0.85;
     const fromLeft = Math.random() > 0.5;
     this.direction = fromLeft ? 1 : -1;
     this.startX = fromLeft ? -0.2 * width : 1.2 * width;
@@ -109,7 +109,7 @@ class Balloon {
   }
 }
 
-const bees = Array.from({ length: 4 }, (_, index) => new Bee(index));
+const bees = Array.from({ length: 8 }, (_, index) => new Bee(index));
 let balloons = [];
 
 let lastTime = performance.now();
