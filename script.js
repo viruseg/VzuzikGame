@@ -61,7 +61,7 @@ class Bee {
     this.direction = fromLeft ? 1 : -1;
     this.startX = fromLeft ? -0.2 * width : 1.2 * width;
     this.endX = fromLeft ? 1.2 * width : -0.2 * width;
-    this.baseY = height * (0.2 + Math.random() * 0.7);
+    this.baseY = height * (0.2 + Math.random() * 0.8);
     this.speed = width * (0.12 + Math.random() * 0.12);
     this.amplitude = 20 + Math.random() * 30;
     this.frequency = 0.6 + Math.random() * 1.0;
