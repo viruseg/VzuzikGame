@@ -1,4 +1,5 @@
 const scene = document.getElementById("scene");
+const frogsLayer = document.getElementById("frogs");
 const beesLayer = document.getElementById("bees");
 const balloonsLayer = document.getElementById("balloons");
 const soundOverlay = document.getElementById("soundOverlay");
@@ -22,6 +23,37 @@ const beeSvg = encodeURIComponent(`
 </svg>`);
 
 const beeImage = `url("data:image/svg+xml;utf8,${beeSvg}")`;
+
+const frogSvgs = {
+  idle: encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 100">
+  <ellipse cx="70" cy="62" rx="45" ry="28" fill="#4caf50"/>
+  <ellipse cx="38" cy="38" rx="14" ry="12" fill="#6dd66d"/>
+  <ellipse cx="102" cy="38" rx="14" ry="12" fill="#6dd66d"/>
+  <circle cx="38" cy="38" r="8" fill="#fff"/><circle cx="102" cy="38" r="8" fill="#fff"/>
+  <circle cx="38" cy="39" r="3.5" fill="#1f3a1f"/><circle cx="102" cy="39" r="3.5" fill="#1f3a1f"/>
+  <ellipse cx="70" cy="74" rx="16" ry="6" fill="#356c35"/>
+  <ellipse cx="24" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
+  <ellipse cx="116" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
+</svg>`),
+  croak: encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 100">
+  <ellipse cx="70" cy="62" rx="45" ry="28" fill="#4caf50"/>
+  <ellipse cx="38" cy="38" rx="14" ry="12" fill="#6dd66d"/>
+  <ellipse cx="102" cy="38" rx="14" ry="12" fill="#6dd66d"/>
+  <circle cx="38" cy="38" r="8" fill="#fff"/><circle cx="102" cy="38" r="8" fill="#fff"/>
+  <circle cx="38" cy="39" r="3.5" fill="#1f3a1f"/><circle cx="102" cy="39" r="3.5" fill="#1f3a1f"/>
+  <ellipse cx="70" cy="72" rx="20" ry="12" fill="#2f5f2f"/>
+  <ellipse cx="70" cy="74" rx="12" ry="7" fill="#122512"/>
+  <ellipse cx="24" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
+  <ellipse cx="116" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
+</svg>`),
+};
+
+const frogImages = {
+  idle: `url("data:image/svg+xml;utf8,${frogSvgs.idle}")`,
+  croak: `url("data:image/svg+xml;utf8,${frogSvgs.croak}")`,
+};
 
 const balloonSvgs = [
   "#ff5d73",
@@ -82,6 +114,69 @@ class Bee {
   }
 }
 
+class Frog {
+  constructor(index, total) {
+    this.index = index;
+    this.el = document.createElement("div");
+    this.el.className = "frog";
+    this.el.style.backgroundImage = frogImages.idle;
+    frogsLayer.appendChild(this.el);
+
+    const width = scene.clientWidth;
+    const step = width / (total + 1);
+    this.x = step * (index + 1) - 36;
+    this.baseY = scene.clientHeight * 0.84 + Math.random() * (scene.clientHeight * 0.08);
+    this.scale = 0.9 + Math.random() * 0.25;
+    this.floatPhase = Math.random() * Math.PI * 2;
+    this.jumpTime = 0;
+    this.jumpDuration = 0;
+    this.croakTime = 0;
+    this.croakDuration = 0;
+    this.nextActionIn = 0.8 + Math.random() * 2.4;
+  }
+
+  triggerAction() {
+    if (Math.random() < 0.55) {
+      this.jumpDuration = 0.45 + Math.random() * 0.18;
+      this.jumpTime = this.jumpDuration;
+    } else {
+      this.croakDuration = 0.35 + Math.random() * 0.3;
+      this.croakTime = this.croakDuration;
+      this.el.style.backgroundImage = frogImages.croak;
+    }
+    this.nextActionIn = 1.1 + Math.random() * 3.8;
+  }
+
+  update(dt, now) {
+    this.nextActionIn -= dt;
+    if (this.nextActionIn <= 0 && this.jumpTime <= 0 && this.croakTime <= 0) {
+      this.triggerAction();
+    }
+
+    if (this.jumpTime > 0) {
+      this.jumpTime -= dt;
+    }
+
+    if (this.croakTime > 0) {
+      this.croakTime -= dt;
+      if (this.croakTime <= 0) {
+        this.el.style.backgroundImage = frogImages.idle;
+      }
+    }
+
+    let jumpOffset = 0;
+    let squash = 1;
+    if (this.jumpTime > 0) {
+      const progress = 1 - this.jumpTime / this.jumpDuration;
+      jumpOffset = Math.sin(progress * Math.PI) * 26;
+      squash = 1 - Math.sin(progress * Math.PI) * 0.08;
+    }
+
+    const breathe = Math.sin(now * 2 + this.floatPhase) * 2;
+    this.el.style.transform = `translate(${this.x}px, ${this.baseY - jumpOffset + breathe}px) scale(${this.scale}, ${this.scale * squash})`;
+  }
+}
+
 class Balloon {
   constructor(x, y) {
     this.el = document.createElement("div");
@@ -109,6 +204,7 @@ class Balloon {
   }
 }
 
+const frogs = Array.from({ length: 6 }, (_, index) => new Frog(index, 6));
 const bees = Array.from({ length: 8 }, (_, index) => new Bee(index));
 let balloons = [];
 
@@ -116,6 +212,7 @@ let lastTime = performance.now();
 function tick(now) {
   const dt = Math.min(0.05, (now - lastTime) / 1000);
   lastTime = now;
+  frogs.forEach((frog) => frog.update(dt, now / 1000));
   bees.forEach((bee) => bee.update(dt));
   balloons = balloons.filter((balloon) => balloon.update(dt));
   requestAnimationFrame(tick);
@@ -263,6 +360,15 @@ window.addEventListener("focus", () => {
       console.error("Unable to resume audio:", error);
     });
   }
+});
+
+
+window.addEventListener("resize", () => {
+  frogs.forEach((frog, index) => {
+    const step = scene.clientWidth / (frogs.length + 1);
+    frog.x = step * (index + 1) - 36;
+    frog.baseY = scene.clientHeight * 0.84 + (index % 2) * (scene.clientHeight * 0.03);
+  });
 });
 
 if ("serviceWorker" in navigator) {
