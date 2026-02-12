@@ -100,6 +100,7 @@ class Bee {
     this.phase = Math.random() * Math.PI * 2;
     this.x = initial ? this.startX : this.startX;
     this.elapsed = 0;
+    this.scale = 1 + this.baseY / scene.clientHeight;
   }
 
   update(dt) {
@@ -107,7 +108,7 @@ class Bee {
     this.x += this.speed * dt * this.direction;
     const y = this.baseY + Math.sin(this.elapsed * this.frequency + this.phase) * this.amplitude + Math.sin(this.elapsed * 2.4 + this.phase) * (this.amplitude * 0.35);
     const tilt = Math.sin(this.elapsed * 3 + this.phase) * 12 * this.direction;
-    this.el.style.transform = `translate(${this.x}px, ${y}px) scaleX(${this.direction}) rotate(${tilt}deg)`;
+    this.el.style.transform = `translate(${this.x}px, ${y}px) scale(${this.scale * this.direction}, ${this.scale}) rotate(${tilt}deg)`;
     if ((this.direction === 1 && this.x > this.endX) || (this.direction === -1 && this.x < this.endX)) {
       this.reset();
     }

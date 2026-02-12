@@ -19,15 +19,13 @@ html, body
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: "Comic Sans MS", "Arial Rounded MT Bold", system-ui, sans-serif;
 }
 
 #scene
 {
     position: relative;
     width: 100vw;
-    height: 100vh;
-    background: linear-gradient(var(--sky-top), var(--sky-bottom) 60%, var(--grass) 60%, var(--grass-dark) 100%);
+    height: 100dvh;
     overflow: hidden;
 }
 
@@ -125,4 +123,99 @@ html, body
 {
     font-size: 0.5em;
     color: gray;
+}
+
+.background
+{
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.sky
+{
+    width: 100%;
+    height: 30%;
+    background: url(imgs/Sky.png) repeat;
+}
+
+.sun
+{
+    background: url(imgs/Sun.png);
+}
+
+.ground
+{
+    width: 100%;
+    height: 70%;
+    background: url(imgs/Ground.png) repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+.groundTop
+{
+    width: 100%;
+    height: 29%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tree
+{
+    background: url(imgs/Tree.png);
+}
+
+.groundMiddle
+{
+    width: 100%;
+    height: 28%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hive
+{
+    background: url(imgs/Hive.png);
+}
+
+.groundBottom
+{
+    width: 100%;
+    height: 43%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lake
+{
+    background: url(imgs/Lake.png);
+}
+
+.waterLily
+{
+    background: url(imgs/WaterLily.png);
+}
+
+.lily
+{
+    background: url(imgs/Lily.png);
+}
+
+.backgroundSprite
+{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    position: absolute;
 }

@@ -4,21 +4,117 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ffb400" />
-  <meta name="description" content="Пчёлки и шарики — мини-игра, которую можно установить как приложение." />
-  <title>Пчёлки и шарики</title>
+  <meta name="description" content="Who is Mr. Wzuzik?" />
+  <title>Who is Mr. Wzuzik?</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="bee-icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main id="scene" aria-label="Игра с пчёлками и шариками">
+  <main id="scene">
     <div class="overlay" id="soundOverlay" role="button" tabindex="0">
         <span class="mainHeader">Who is Mr. Wzuzik?</span>
         <span class="secondHeader">Tap to start</span>
     </div>
-    <div id="frogs" aria-hidden="true"></div>
-    <div id="bees" aria-hidden="true"></div>
-    <div id="balloons" aria-hidden="true"></div>
+    <div id="frogs"></div>
+    <div id="bees"></div>
+    <div id="balloons"></div>
+    <div class="background">
+        <div class="sky">
+            <div class="sun backgroundSprite" style="left: 8dvh;top: 4dvh;height: 12dvh;"></div>
+        </div>
+        <div class="ground">
+            <div class="groundTop">
+                <div class="tree backgroundSprite" style="left: -63dvh;top: -9dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -37dvh;top: -9dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -53dvh;top: -8dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -90dvh;top: -10dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -102dvh;top: -9dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -235dvh;top: -8dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -142dvh;top: -9dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -11dvh;top: -10dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 18dvh;top: -9dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 36dvh;top: -8dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 60dvh;top: -10dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 74dvh;top: -8dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 88dvh;top: -9dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 100dvh;top: -10dvh;height: 14dvh;"></div>
+
+                <div class="tree backgroundSprite" style="left: -25dvh;top: -5dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -41dvh;top: -4dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -78dvh;top: -6dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -90dvh;top: -5dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -115dvh;top: -4dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -130dvh;top: -5dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 1dvh;top: -6dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 30dvh;top: -5dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 48dvh;top: -4dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 72dvh;top: -6dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 86dvh;top: -4dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 100dvh;top: -5dvh;height: 14dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 112dvh;top: -6dvh;height: 14dvh;"></div>
+
+                <div class="tree backgroundSprite" style="left: -7dvh;top: -9dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -21dvh;top: -8dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -43dvh;top: -6dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -55dvh;top: -3dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -81dvh;top: -5dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -103dvh;top: -4dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -127dvh;top: -2dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -140dvh;top: -6dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -155dvh;top: -5dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 9dvh;top: -8dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 25dvh;top: -2dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 47dvh;top: -5dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 57dvh;top: -7dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 80dvh;top: -6dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 103dvh;top: -2dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 127dvh;top: -3dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 140dvh;top: -1dvh;height: 18dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 155dvh;top: -9dvh;height: 18dvh;"></div>
+
+                <div class="tree backgroundSprite" style="left: 46dvh;top: -2dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 68dvh;top: 2dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 92dvh;top: -2dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 115dvh;top: -1dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: 140dvh;top: 0dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -50dvh;top: 1dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -72dvh;top: -2dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -95dvh;top: 1dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -119dvh;top: 3dvh;height: 27dvh;"></div>
+                <div class="tree backgroundSprite" style="left: -141dvh;top: -5dvh;height: 27dvh;"></div>
+            </div>
+            <div class="groundMiddle">
+                <div class="hive backgroundSprite" style="left: 2dvh; top: -14dvh; height: 14dvh;"></div>
+                <div class="hive backgroundSprite" style="left: -15dvh; top: -10dvh;"></div>
+                <div class="hive backgroundSprite" style="left: 13dvh; top: -7dvh; height: 23dvh;"></div>
+                <div class="hive backgroundSprite" style="left: 42dvh;top: -1dvh;height: 25dvh;"></div>
+                <div class="hive backgroundSprite" style="left: -34dvh;top: -12dvh;height: 17dvh;"></div>
+                <div class="hive backgroundSprite" style="left: -44dvh;top: -3dvh;height: 24dvh;"></div>
+                <div class="hive backgroundSprite" style="left: 32dvh;top: -15dvh;height: 13dvh;"></div>
+            </div>
+            <div class="groundBottom">
+                <div class="lake backgroundSprite">
+                    <div class="waterLily backgroundSprite" style="left: 8dvh; top: 3dvh; height: 9dvh;"></div>
+                    <div class="lily backgroundSprite" style="left: 2dvh; top: 3dvh; height: 5dvh;"></div>
+                    <div class="waterLily backgroundSprite" style="left: -11dvh; top: 10dvh; height: 6dvh; transform: rotate(6deg) scaleX(-1);"></div>
+                    <div class="waterLily backgroundSprite" style="left: 17dvh;top: 19dvh;height: 15dvh;transform: rotate(359deg) scaleX(-1);"></div>
+                    <div class="waterLily backgroundSprite" style="left: 33dvh;top: 10dvh;height: 10dvh;transform: rotate(351deg);"></div>
+                    <div class="waterLily backgroundSprite" style="left: -17dvh;top: 17dvh;height: 11dvh;"></div>
+                    <div class="waterLily backgroundSprite" style="left: -39dvh;top: 13dvh;height: 11dvh;transform: rotate(13deg) scaleX(-1);"></div>
+                    <div class="waterLily backgroundSprite" style="left: -29dvh;top: 6dvh;height: 6dvh;transform: rotate(13deg);"></div>
+                    <div class="waterLily backgroundSprite" style="left: 49dvh;top: 22dvh;height: 6dvh;transform: rotate(13deg);"></div>
+                    <div class="waterLily backgroundSprite" style="left: -53dvh;top: 23dvh;height: 6dvh;transform: rotate(350deg) scaleX(-1);"></div>
+                    <div class="lily backgroundSprite" style="left: -26dvh;top: 5dvh;height: 4dvh;"></div>
+                    <div class="lily backgroundSprite" style="left: 33dvh;top: 9dvh;height: 5dvh;"></div>
+                    <div class="lily backgroundSprite" style="left: 19dvh;top: 16dvh;height: 8dvh;"></div>
+                    <div class="lily backgroundSprite" style="left: -10dvh;top: 17dvh;height: 5dvh;"></div>
+                    <div class="lily backgroundSprite" style="left: -36dvh;top: 19dvh;height: 5dvh;"></div>
+                    <div class="lily backgroundSprite" style="left: -9dvh;top: 10dvh;height: 3dvh;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
   </main>
   <script src="script.js"></script>
 </body>
