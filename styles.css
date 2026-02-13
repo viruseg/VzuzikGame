@@ -69,10 +69,12 @@ html, body
 
 .bee
 {
+    --bee-size: 1;
     position: absolute;
-    width: clamp(70px, 14vw, 140px);
-    height: clamp(50px, 10vw, 100px);
+    width: calc(10dvh * var(--bee-size));
+    height: calc(10dvh * var(--bee-size));
     background-size: contain;
+    background-image: url(imgs/bee.svg);
     background-repeat: no-repeat;
     background-position: center;
     will-change: transform;
@@ -81,10 +83,12 @@ html, body
 
 .frog
 {
+    --frog-size: 1;
     position: absolute;
-    width: clamp(52px, 10vw, 96px);
-    height: clamp(40px, 8vw, 72px);
+    width: calc(10dvh * var(--frog-size));
+    height: calc(10dvh * var(--frog-size));
     background-size: contain;
+    background-image: url(imgs/frogIdle.svg);
     background-repeat: no-repeat;
     background-position: center;
     transform-origin: center bottom;
@@ -93,11 +97,17 @@ html, body
     filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.18));
 }
 
+.frogCroak
+{
+    background-image: url(imgs/frogCroak.svg);
+}
+
 .balloon
 {
+    --balloon-size: 1;
     position: absolute;
-    width: clamp(70px, 16vw, 150px);
-    height: clamp(90px, 20vw, 180px);
+    width: calc(15dvh * var(--balloon-size));
+    height: calc(15dvh * var(--balloon-size));
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

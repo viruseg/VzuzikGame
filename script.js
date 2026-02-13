@@ -4,57 +4,6 @@ const beesLayer = document.getElementById("bees");
 const balloonsLayer = document.getElementById("balloons");
 const soundOverlay = document.getElementById("soundOverlay");
 
-const beeSvg = encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 110">
-  <defs>
-    <linearGradient id="g" x1="0" x2="1">
-      <stop offset="0" stop-color="#ffd447"/>
-      <stop offset="1" stop-color="#ffb400"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="80" cy="60" rx="55" ry="35" fill="url(#g)" stroke="#222" stroke-width="4"/>
-  <ellipse cx="48" cy="60" rx="10" ry="30" fill="#222"/>
-  <ellipse cx="75" cy="60" rx="10" ry="30" fill="#222"/>
-  <ellipse cx="102" cy="60" rx="10" ry="30" fill="#222"/>
-  <circle cx="122" cy="55" r="10" fill="#222"/>
-  <circle cx="128" cy="50" r="4" fill="#fff"/>
-  <ellipse cx="60" cy="25" rx="25" ry="15" fill="#c9f0ff" stroke="#7bbbe0" stroke-width="3"/>
-  <ellipse cx="90" cy="22" rx="25" ry="15" fill="#c9f0ff" stroke="#7bbbe0" stroke-width="3"/>
-</svg>`);
-
-const beeImage = `url("data:image/svg+xml;utf8,${beeSvg}")`;
-
-const frogSvgs = {
-  idle: encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 100">
-  <ellipse cx="70" cy="62" rx="45" ry="28" fill="#4caf50"/>
-  <ellipse cx="38" cy="38" rx="14" ry="12" fill="#6dd66d"/>
-  <ellipse cx="102" cy="38" rx="14" ry="12" fill="#6dd66d"/>
-  <circle cx="38" cy="38" r="8" fill="#fff"/><circle cx="102" cy="38" r="8" fill="#fff"/>
-  <circle cx="38" cy="39" r="3.5" fill="#1f3a1f"/><circle cx="102" cy="39" r="3.5" fill="#1f3a1f"/>
-  <ellipse cx="70" cy="74" rx="16" ry="6" fill="#356c35"/>
-  <ellipse cx="24" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
-  <ellipse cx="116" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
-</svg>`),
-  croak: encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 100">
-  <ellipse cx="70" cy="62" rx="45" ry="28" fill="#4caf50"/>
-  <ellipse cx="38" cy="38" rx="14" ry="12" fill="#6dd66d"/>
-  <ellipse cx="102" cy="38" rx="14" ry="12" fill="#6dd66d"/>
-  <circle cx="38" cy="38" r="8" fill="#fff"/><circle cx="102" cy="38" r="8" fill="#fff"/>
-  <circle cx="38" cy="39" r="3.5" fill="#1f3a1f"/><circle cx="102" cy="39" r="3.5" fill="#1f3a1f"/>
-  <ellipse cx="70" cy="72" rx="20" ry="12" fill="#2f5f2f"/>
-  <ellipse cx="70" cy="74" rx="12" ry="7" fill="#122512"/>
-  <ellipse cx="24" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
-  <ellipse cx="116" cy="74" rx="12" ry="10" fill="#3f8f3f"/>
-</svg>`),
-};
-
-const frogImages = {
-  idle: `url("data:image/svg+xml;utf8,${frogSvgs.idle}")`,
-  croak: `url("data:image/svg+xml;utf8,${frogSvgs.croak}")`,
-};
-
 const balloonSvgs = [
   "#ff5d73",
   "#ffb347",
@@ -78,10 +27,8 @@ const balloonSvgs = [
 
 class Bee {
   constructor(index) {
-    this.index = index;
     this.el = document.createElement("div");
     this.el.className = "bee";
-    this.el.style.backgroundImage = beeImage;
     beesLayer.appendChild(this.el);
     this.reset(true);
   }
@@ -94,7 +41,7 @@ class Bee {
     this.startX = fromLeft ? -0.2 * width : 1.2 * width;
     this.endX = fromLeft ? 1.2 * width : -0.2 * width;
     this.baseY = height * (0.2 + Math.random() * 0.8);
-    this.speed = width * (0.12 + Math.random() * 0.12);
+    this.speed = Math.floor(Math.random() * (110 - 50 + 1)) + 50;
     this.amplitude = 20 + Math.random() * 30;
     this.frequency = 0.6 + Math.random() * 1.0;
     this.phase = Math.random() * Math.PI * 2;
@@ -120,10 +67,13 @@ class Frog {
     this.anchor = anchor;
     this.el = document.createElement("div");
     this.el.className = "frog";
-    this.el.style.backgroundImage = frogImages.idle;
+
+    const style = getComputedStyle(anchor);
+    const frogSize = style.getPropertyValue('--frog-size');
+    this.el.style.setProperty('--frog-size', frogSize);
+
     frogsLayer.appendChild(this.el);
 
-    this.scale = 0.9 + Math.random() * 0.25;
     this.floatPhase = Math.random() * Math.PI * 2;
     this.jumpTime = 0;
     this.jumpDuration = 0;
@@ -139,7 +89,7 @@ class Frog {
     } else {
       this.croakDuration = 0.35 + Math.random() * 0.3;
       this.croakTime = this.croakDuration;
-      this.el.style.backgroundImage = frogImages.croak;
+      this.el.classList.add('frogCroak');
     }
     this.nextActionIn = 1.1 + Math.random() * 3.8;
   }
@@ -157,7 +107,7 @@ class Frog {
     if (this.croakTime > 0) {
       this.croakTime -= dt;
       if (this.croakTime <= 0) {
-        this.el.style.backgroundImage = frogImages.idle;
+        this.el.classList.remove('frogCroak');
       }
     }
 
@@ -176,7 +126,7 @@ class Frog {
     let y = anchorRect.y - elRect.height * 0.8;
 
     const breathe = Math.sin(now * 2 + this.floatPhase) * 2;
-    this.el.style.transform = `translate(${x}px, ${y - jumpOffset + breathe}px) scale(${this.scale}, ${this.scale * squash})`;
+    this.el.style.transform = `translate(${x}px, ${y - jumpOffset + breathe}px) scale(1, ${squash})`;
   }
 }
 
