@@ -116,17 +116,13 @@ class Bee {
 }
 
 class Frog {
-  constructor(index, total) {
-    this.index = index;
+  constructor(anchor) {
+    this.anchor = anchor;
     this.el = document.createElement("div");
     this.el.className = "frog";
     this.el.style.backgroundImage = frogImages.idle;
     frogsLayer.appendChild(this.el);
 
-    const width = scene.clientWidth;
-    const step = width / (total + 1);
-    this.x = step * (index + 1) - 36;
-    this.baseY = scene.clientHeight * 0.84 + Math.random() * (scene.clientHeight * 0.08);
     this.scale = 0.9 + Math.random() * 0.25;
     this.floatPhase = Math.random() * Math.PI * 2;
     this.jumpTime = 0;
@@ -173,8 +169,14 @@ class Frog {
       squash = 1 - Math.sin(progress * Math.PI) * 0.08;
     }
 
+    let elRect = this.el.getBoundingClientRect();
+
+    let anchorRect = this.anchor.getBoundingClientRect();
+    let x = anchorRect.x - elRect.width / 2;
+    let y = anchorRect.y - elRect.height * 0.8;
+
     const breathe = Math.sin(now * 2 + this.floatPhase) * 2;
-    this.el.style.transform = `translate(${this.x}px, ${this.baseY - jumpOffset + breathe}px) scale(${this.scale}, ${this.scale * squash})`;
+    this.el.style.transform = `translate(${x}px, ${y - jumpOffset + breathe}px) scale(${this.scale}, ${this.scale * squash})`;
   }
 }
 
@@ -205,8 +207,13 @@ class Balloon {
   }
 }
 
-const frogs = Array.from({ length: 6 }, (_, index) => new Frog(index, 6));
+const frogs = Array.from(
+    document.querySelectorAll('.lake .waterLily .anchor'),
+    anchor => new Frog(anchor)
+);
+
 const bees = Array.from({ length: 8 }, (_, index) => new Bee(index));
+
 let balloons = [];
 
 let lastTime = performance.now();
