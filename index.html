@@ -1,17 +1,22 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#ffb400" />
-  <meta name="description" content="Who is Mr. Wzuzik?" />
-  <title>Who is Mr. Wzuzik?</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="icon" href="bee-icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#ffb400"/>
+    <meta name="description" content="Who is Mr. Wzuzik?"/>
+    <title>Who is Mr. Wzuzik?</title>
+    <link rel="manifest" href="manifest.webmanifest"/>
+    <link rel="icon" href="bee-icon.svg" type="image/svg+xml"/>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="lib.js"></script>
+    <script src="SoundManager.js"></script>
+    <script src="balloon.js"></script>
+    <script src="bee.js"></script>
+    <script src="frog.js"></script>
 </head>
 <body>
-  <main id="scene">
+<main id="scene">
     <div class="overlay" id="soundOverlay" role="button" tabindex="0">
         <span class="mainHeader">Who is Mr. Wzuzik?</span>
         <span class="secondHeader">Tap to start</span>
@@ -22,6 +27,11 @@
     <div class="background">
         <div class="sky">
             <div class="sun backgroundSprite" style="left: 8dvh;top: 4dvh;height: 12dvh;"></div>
+            <div class="cloud0 backgroundSprite" style="left: -77dvh;top: 13dvh;height: 12dvh;"></div>
+            <div class="cloud1 backgroundSprite" style="left: -41dvh;top: 0dvh;height: 15dvh;"></div>
+            <div class="cloud2 backgroundSprite" style="left: -13dvh;top: 7dvh;height: 12dvh;"></div>
+            <div class="cloud0 backgroundSprite" style="left: 24dvh;top: 4dvh;height: 17dvh;"></div>
+            <div class="cloud1 backgroundSprite" style="left: 81dvh;top: 2dvh;height: 9dvh;"></div>
         </div>
         <div class="ground">
             <div class="groundTop">
@@ -85,55 +95,107 @@
                 <div class="tree backgroundSprite" style="left: -141dvh;top: -5dvh;height: 27dvh;"></div>
             </div>
             <div class="groundMiddle">
-                <div class="hive backgroundSprite" style="left: 2dvh; top: -14dvh; height: 14dvh;"></div>
-                <div class="hive backgroundSprite" style="left: -15dvh; top: -10dvh;"></div>
                 <div class="hive backgroundSprite" style="left: 13dvh; top: -7dvh; height: 23dvh;"></div>
-                <div class="hive backgroundSprite" style="left: 42dvh;top: -1dvh;height: 25dvh;"></div>
                 <div class="hive backgroundSprite" style="left: -34dvh;top: -12dvh;height: 17dvh;"></div>
-                <div class="hive backgroundSprite" style="left: -44dvh;top: -3dvh;height: 24dvh;"></div>
                 <div class="hive backgroundSprite" style="left: 32dvh;top: -15dvh;height: 13dvh;"></div>
+
+                <div class="flower0 backgroundSprite" style="left: 0vh;top: -10dvh;height: 10dvh;"></div>
+                <div class="flower0 backgroundSprite" style="left: 63vh;top: 17dvh;height: 11dvh;"></div>
+                <div class="flower0 backgroundSprite" style="left: -80vh;top: 34dvh;height: 12dvh;"></div>
+                <div class="flower0 backgroundSprite" style="left: -28vh;top: -1dvh;height: 10dvh;"></div>
+                <div class="flower0 backgroundSprite" style="left: -83vh;top: -7dvh;height: 10dvh;"></div>
+                <div class="flower0 backgroundSprite" style="left: 76vh;top: -7dvh;height: 8dvh;"></div>
+
+                <div class="flower1 backgroundSprite" style="left: -8vh;top: -7dvh;height: 10dvh;"></div>
+                <div class="flower1 backgroundSprite" style="left: -73vh;top: 15dvh;height: 11dvh;"></div>
+                <div class="flower1 backgroundSprite" style="left: 69vh;top: 28dvh;height: 12dvh;"></div>
+                <div class="flower1 backgroundSprite" style="left: 26vh;top: 7dvh;height: 10dvh;"></div>
+                <div class="flower1 backgroundSprite" style="left: 82vh;top: 5dvh;height: 10dvh;"></div>
+                <div class="flower1 backgroundSprite" style="left: -96vh;top: 5dvh;height: 10dvh;"></div>
+
+                <div class="flower2 backgroundSprite" style="left: -33vh;top: -17dvh;height: 4dvh;"></div>
+                <div class="flower2 backgroundSprite" style="left: -86vh;top: 22dvh;height: 11dvh;"></div>
+                <div class="flower2 backgroundSprite" style="left: 83vh;top: 35dvh;height: 12dvh;"></div>
+                <div class="flower2 backgroundSprite" style="left: -18vh;top: -9dvh;height: 9dvh;"></div>
+                <div class="flower2 backgroundSprite" style="left: -101vh;top: 38dvh;height: 13dvh;"></div>
+                <div class="flower2 backgroundSprite" style="left: 101vh;top: 16dvh;height: 10dvh;"></div>
+
+                <div class="grass0 backgroundSprite" style="left: -19vh;top: 8dvh;height: 10dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -51vh;top: 18dvh;height: 10dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 52vh;top: 20dvh;height: 11dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 36vh;top: -7dvh;height: 7dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -43vh;top: 4dvh;height: 5dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -28vh;top: -19dvh;height: 4dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -90vh;top: 4dvh;height: 7dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -90vh;top: 39dvh;height: 10dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -63vh;top: 8dvh;height: 8dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 88vh;top: 14dvh;height: 10dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 97vh;top: 33dvh;height: 9dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 107vh;top: 23dvh;height: 5dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -107vh;top: 33dvh;height: 9dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -102vh;top: -4dvh;height: 9dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -59vh;top: -8dvh;height: 7dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 60vh;top: 0dvh;height: 6dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 12vh;top: -14dvh;height: 5dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: -71vh;top: -1dvh;height: 7dvh;"></div>
+                <div class="grass0 backgroundSprite" style="left: 71vh;top: 3dvh;height: 6dvh;"></div>
+
+                <div class="grass1 backgroundSprite" style="left: 14vh;top: 12dvh;height: 8dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: -65vh;top: 24dvh;height: 10dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 74vh;top: 33dvh;height: 11dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 88vh;top: -1dvh;height: 7dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 23vh;top: -6dvh;height: 6dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: -12vh;top: -18dvh;height: 4dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 27vh;top: 5dvh;height: 6dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: -100vh;top: 12dvh;height: 8dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: -82vh;top: 11dvh;height: 6dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 58vh;top: 11dvh;height: 6dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 81vh;top: 18dvh;height: 9dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 101vh;top: 6dvh;height: 8dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: -100vh;top: 26dvh;height: 9dvh;"></div>
+                <div class="grass1 backgroundSprite" style="left: 53vh;top: -4dvh;height: 5dvh;"></div>
             </div>
             <div class="groundBottom">
                 <div class="lake backgroundSprite">
-                    <div class="waterLily backgroundSprite" style="left: 8dvh; top: 3dvh; height: 9dvh;">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: 8dvh; top: 3dvh; height: 9dvh;">
                         <div class="anchor" style="transform: translate(5dvh, 0dvh); --frog-size: 1.5"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: -11dvh; top: 10dvh; height: 6dvh; transform: rotate(6deg) scaleX(-1);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: -11dvh; top: 10dvh; height: 6dvh; transform: rotate(6deg) scaleX(-1);">
                         <div class="anchor" style="transform: translate(28dvh, 0dvh); --frog-size: 1.4"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: 17dvh;top: 19dvh;height: 15dvh;transform: rotate(359deg) scaleX(-1);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: 17dvh;top: 19dvh;height: 15dvh;transform: rotate(359deg) scaleX(-1);">
                         <div class="anchor" style="transform: translate(14dvh, -3dvh); --frog-size: 1.7"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: 33dvh;top: 10dvh;height: 10dvh;transform: rotate(351deg);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: 33dvh;top: 10dvh;height: 10dvh;transform: rotate(351deg);">
                         <div class="anchor" style="transform: translate(11dvh, 0dvh); --frog-size: 1.3"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: -17dvh;top: 17dvh;height: 11dvh;">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: -17dvh;top: 17dvh;height: 11dvh;">
                         <div class="anchor" style="transform: translate(0dvh, 0dvh); --frog-size: 1.2"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: -39dvh;top: 13dvh;height: 11dvh;transform: rotate(13deg) scaleX(-1);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: -39dvh;top: 13dvh;height: 11dvh;transform: rotate(13deg) scaleX(-1);">
                         <div class="anchor" style="transform: translate(11dvh, 1dvh); --frog-size: 1.6"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: -29dvh;top: 6dvh;height: 6dvh;transform: rotate(13deg);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: -29dvh;top: 6dvh;height: 6dvh;transform: rotate(13deg);">
                         <div class="anchor" style="transform: translate(16dvh, -6dvh); --frog-size: 2.6"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: 49dvh;top: 22dvh;height: 6dvh;transform: rotate(13deg);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: 49dvh;top: 22dvh;height: 6dvh;transform: rotate(13deg);">
                         <div class="anchor" style="transform: translate(-9dvh, 5dvh); --frog-size: 1"></div>
                     </div>
-                    <div class="waterLily backgroundSprite" style="left: -53dvh;top: 23dvh;height: 6dvh;transform: rotate(350deg) scaleX(-1);">
+                    <div class="waterLily backgroundSprite sortExclude" style="left: -53dvh;top: 23dvh;height: 6dvh;transform: rotate(350deg) scaleX(-1);">
                         <div class="anchor" style="transform: translate(11dvh, -3dvh); --frog-size: 1"></div>
                     </div>
-                    <div class="lily backgroundSprite" style="left: 2dvh; top: 3dvh; height: 5dvh;"></div>
-                    <div class="lily backgroundSprite" style="left: -26dvh;top: 5dvh;height: 4dvh;"></div>
-                    <div class="lily backgroundSprite" style="left: 33dvh;top: 9dvh;height: 5dvh;"></div>
-                    <div class="lily backgroundSprite" style="left: 19dvh;top: 16dvh;height: 8dvh;"></div>
-                    <div class="lily backgroundSprite" style="left: -10dvh;top: 17dvh;height: 5dvh;"></div>
-                    <div class="lily backgroundSprite" style="left: -36dvh;top: 19dvh;height: 5dvh;"></div>
-                    <div class="lily backgroundSprite" style="left: -9dvh;top: 10dvh;height: 3dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: 2dvh; top: 3dvh; height: 5dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: -26dvh;top: 5dvh;height: 4dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: 33dvh;top: 9dvh;height: 5dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: 19dvh;top: 16dvh;height: 8dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: -10dvh;top: 17dvh;height: 5dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: -36dvh;top: 19dvh;height: 5dvh;"></div>
+                    <div class="lily backgroundSprite sortExclude" style="left: -9dvh;top: 10dvh;height: 3dvh;"></div>
                 </div>
             </div>
         </div>
     </div>
-  </main>
-  <script src="script.js"></script>
+</main>
+<script src="main.js"></script>
 </body>
 </html>

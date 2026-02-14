@@ -16,8 +16,8 @@ html, body
 {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100dvh;
     overflow: hidden;
 }
 
@@ -36,16 +36,6 @@ html, body
     pointer-events: none;
 }
 
-#frogs
-{
-    z-index: 1;
-}
-
-#bees, #balloons
-{
-    z-index: 2;
-}
-
 .overlay
 {
     position: absolute;
@@ -56,9 +46,9 @@ html, body
     text-align: center;
     background: rgba(255, 255, 255, 0.6);
     color: #333;
-    font-size: clamp(20px, 4vw, 36px);
+    font-size: 40px;
     font-weight: 700;
-    z-index: 5;
+    z-index: 100100;
     flex-direction: column;
 }
 
@@ -79,16 +69,17 @@ html, body
     background-position: center;
     will-change: transform;
     pointer-events: none;
+    z-index: 100003;
 }
 
 .frog
 {
     --frog-size: 1;
     position: absolute;
-    width: calc(10dvh * var(--frog-size));
-    height: calc(10dvh * var(--frog-size));
+    width: calc(6dvh * var(--frog-size));
+    height: calc(6dvh * var(--frog-size));
     background-size: contain;
-    background-image: url(imgs/frogIdle.svg);
+    background-image: url(imgs/frogIdle.png);
     background-repeat: no-repeat;
     background-position: center;
     transform-origin: center bottom;
@@ -99,7 +90,7 @@ html, body
 
 .frogCroak
 {
-    background-image: url(imgs/frogCroak.svg);
+    background-image: url(imgs/frogCroak.png);
 }
 
 .balloon
@@ -114,6 +105,7 @@ html, body
     transform-origin: center bottom;
     will-change: transform;
     pointer-events: none;
+    z-index: 100004;
 }
 
 .balloon::after
@@ -147,11 +139,27 @@ html, body
     width: 100%;
     height: 30%;
     background: url(imgs/Sky.png) repeat;
+    z-index: -100000;
 }
 
 .sun
 {
     background: url(imgs/Sun.png);
+}
+
+.cloud0
+{
+    background: url(imgs/Cloud0.png);
+}
+
+.cloud1
+{
+    background: url(imgs/Cloud1.png);
+}
+
+.cloud2
+{
+    background: url(imgs/Cloud2.png);
 }
 
 .ground
@@ -161,6 +169,7 @@ html, body
     background: url(imgs/Ground.png) repeat;
     display: flex;
     flex-direction: column;
+    z-index: -100000;
 }
 
 .groundTop
@@ -191,6 +200,36 @@ html, body
 .hive
 {
     background: url(imgs/Hive.png);
+}
+
+.flower0
+{
+    background: url(imgs/Flower0.png);
+}
+
+.flower1
+{
+    background: url(imgs/Flower1.png);
+}
+
+.flower2
+{
+    background: url(imgs/Flower2.png);
+}
+
+.grass0
+{
+    background: url(imgs/Grass0.png);
+}
+
+.grass1
+{
+    background: url(imgs/Grass1.png);
+}
+
+.grass2
+{
+    background: url(imgs/Grass2.png);
 }
 
 .groundBottom
