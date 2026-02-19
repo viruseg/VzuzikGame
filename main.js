@@ -85,21 +85,16 @@ async function releaseWakeLock()
     }
 }
 
-function startBuzz()
+function Init()
 {
-    sm.play('bee', {loop: true});
-}
-
-async function stopBuzz()
-{
-    sm.stopAll();
-}
-
-soundOverlay.addEventListener("touchstart", (event) => {
     sm.unlock();
-    startBuzz();
+    sm.play('bee', {loop: true});
     requestWakeLock().then();
     soundOverlay.classList.add("hidden");
+}
+
+soundOverlay.addEventListener("click", (event) => {
+    Init();
 }, { passive: false });
 
 document.addEventListener("visibilitychange", async () =>
